@@ -7,12 +7,10 @@ export const metadata: Metadata = {
 };
 
 const images = [
-  { id: 1, src: "/images/img1.jpg", alt: "Modern Factory Exterior" },
-  { id: 2, src: "/images/img2.jpg", alt: "Industrial Infrastructure" },
-  { id: 3, src: "/images/img3.jpg", alt: "Construction Progress" },
-  { id: 4, src: "/images/img4.jpg", alt: "Aerial Master Plan View" },
-  { id: 5, src: "/images/img1.jpg", alt: "Wide Roads Infrastructure" },
-  { id: 6, src: "/images/img2.jpg", alt: "Premium Corporate Office" },
+  { id: 1, src: "/images/gallery/1-aerial-master-plan.png", alt: "Aerial Master Plan View" },
+  { id: 2, src: "/images/gallery/2-modern-factory-exterior.png", alt: "Modern Factory Exterior" },
+  { id: 3, src: "/images/gallery/3-construction-progress.png", alt: "Construction Progress" },
+  { id: 4, src: "/images/gallery/4-industrial-infrastructure.png", alt: "Industrial Infrastructure" },
 ];
 
 export default function GalleryPage() {
@@ -36,7 +34,7 @@ export default function GalleryPage() {
         </div>
 
         {/* Masonry Layout approximation using CSS columns */}
-        <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8 max-w-7xl mx-auto">
+        <div className="columns-1 md:columns-2 gap-8 space-y-8 max-w-5xl mx-auto">
           {images.map((img) => (
             <div key={img.id} className="break-inside-avoid group relative overflow-hidden rounded-[2rem] border border-stone-light shadow-xl cursor-pointer">
               <div className="relative w-full">
