@@ -7,7 +7,7 @@ export const siteConfig = {
     phone1: "+91 9712345353",
     phone2: "+91 7024150241",
     email: "inquiry@textilevalley.com", // Placeholder
-    address: "Block No. 160, 16, 17, 18, 19, Near Lajpore Jail, Lajpore, Surat",
+    address: "Block no 160, 16,17,18,19, near lajpore jail, lajpore, surat",
     whatsapp: "+919712345353", // Using primary phone
   },
   social: {
@@ -30,12 +30,12 @@ export const masterPlanData = {
 };
 
 export const amenitiesData = [
-  { id: "na-plan", title: "NA Plan Pass", icon: "na-plan" },
-  { id: "rcc-roads", title: "RCC Roads", icon: "rcc-roads" },
-  { id: "cop-garden", title: "COP Garden", icon: "cop-garden" },
-  { id: "gutter-line", title: "Gutter Line", icon: "gutter-line" },
-  { id: "underground-wiring", title: "Underground Wiring", icon: "underground-wiring" },
-  { id: "street-light", title: "Street Light", icon: "street-light" },
+  { id: "na-plan", title: "NA Plan Pass", icon: "na-plan", description: "Title-clear non-agricultural plots ready for immediate industrial development." },
+  { id: "rcc-roads", title: "RCC Roads", icon: "rcc-roads", description: "Heavy-duty 45m wide RCC roads designed for seamless heavy vehicle movement." },
+  { id: "cop-garden", title: "COP Garden", icon: "cop-garden", description: "Lush green Common Open Plots providing a refreshing environment for your workforce." },
+  { id: "gutter-line", title: "Gutter Line", icon: "gutter-line", description: "Enterprise-grade drainage and sewage systems for clean and safe operations." },
+  { id: "underground-wiring", title: "Underground Wiring", icon: "underground-wiring", description: "Reliable underground electrical infrastructure ensuring uninterrupted power supply." },
+  { id: "street-light", title: "Street Light", icon: "street-light", description: "Bright LED street illumination across the entire park for 24/7 safe operations." },
 ];
 
 export const statisticsData = [

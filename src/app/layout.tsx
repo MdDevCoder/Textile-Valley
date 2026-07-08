@@ -73,13 +73,12 @@ const jsonLd = {
   image: "https://textilevalley.in/og-image.jpg",
   "@id": "https://textilevalley.in",
   url: "https://textilevalley.in",
-  telephone: "+919876543210",
+  telephone: "+919712345353",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Near Lajpore, Surat-Navsari Highway",
+    streetAddress: "Block no 160, 16, 17, 18, 19, near lajpore jail, lajpore",
     addressLocality: "Surat",
     addressRegion: "Gujarat",
-    postalCode: "394235",
     addressCountry: "IN",
   },
   geo: {
@@ -110,9 +109,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${inter.variable} ${manrope.variable} ${spaceGrotesk.variable} h-full antialiased dark`}
+      className={`${inter.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
-      <body className="antialiased min-h-screen bg-background text-foreground flex flex-col selection:bg-gold/30 selection:text-white">
+      <body className="antialiased min-h-screen bg-background text-foreground flex flex-col selection:bg-forest/20 selection:text-forest-light overflow-x-hidden">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

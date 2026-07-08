@@ -5,70 +5,75 @@ import Image from "next/image";
 
 export function BrandStory() {
   return (
-    <section className="py-32 bg-black relative overflow-hidden">
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-gold/5 blur-[150px] rounded-full pointer-events-none -translate-y-1/2 -translate-x-1/2" />
+    <section className="py-32 md:py-48 bg-white relative overflow-hidden">
       
-      <div className="container mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
+      {/* Subtle blueprint grid overlay */}
+      <div className="absolute inset-0 bg-blueprint opacity-30 z-0 pointer-events-none" />
+
+      <div className="container mx-auto px-4 md:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
           
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
+          {/* Text Content */}
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="space-y-8"
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 space-y-10 order-2 lg:order-1 relative z-10"
           >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-[1px] bg-gold" />
-              <span className="text-gold uppercase tracking-widest text-sm font-medium">The Vision</span>
+            <div className="inline-block border border-stone-light px-4 py-1.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-bold text-stone bg-white">
+              The Vision
             </div>
             
-            <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl text-white leading-tight">
+            <h2 className="text-5xl md:text-7xl font-bold text-charcoal leading-[0.9] tracking-tighter">
               Redefining <br />
-              <span className="italic text-gold font-light">Industrial Spaces</span>
+              <span className="text-stone">Industry.</span>
             </h2>
             
-            <div className="space-y-6 text-soft-gray/90 text-lg leading-relaxed">
+            <div className="space-y-6 text-stone font-medium text-lg leading-relaxed max-w-lg">
               <p>
-                Textile Valley is not just an industrial park; it is a meticulously crafted ecosystem designed for visionaries. We are building South Gujarat&apos;s most prestigious destination for textile manufacturers, exporters, and logistics pioneers.
+                Textile Valley is not just an industrial park; it is a meticulously crafted ecosystem designed for visionaries. We are building South Gujarat&apos;s most prestigious destination for textile manufacturers and global exporters.
               </p>
               <p>
-                Driven by a commitment to world-class infrastructure and uncompromised quality, our master plan integrates strategic connectivity with state-of-the-art amenities, ensuring your business operates at peak efficiency.
+                Driven by a commitment to world-class infrastructure and uncompromised quality, our master plan integrates strategic connectivity with state-of-the-art amenities.
               </p>
             </div>
           </motion.div>
 
-          <div className="relative h-[600px] w-full rounded-2xl overflow-hidden group">
-            <motion.div
-              initial={{ scale: 1.1, opacity: 0 }}
+          {/* Image Content - Full Bleed Offset */}
+          <div className="lg:col-span-7 order-1 lg:order-2 relative w-full group">
+            <motion.div 
+              className="w-full relative rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-bone shadow-2xl"
+              initial={{ scale: 0.95, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1.5, ease: "easeOut" }}
-              className="w-full h-full"
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="absolute inset-0 bg-royal/40 mix-blend-multiply z-10 transition-opacity duration-500 group-hover:opacity-20" />
+              {/* Subtle hover overlay */}
+              <div className="absolute inset-0 bg-charcoal/5 mix-blend-multiply z-10 transition-opacity duration-700 group-hover:opacity-0" />
               <Image
-                src="https://images.unsplash.com/photo-1587293852726-0d628ab243c5?q=80&w=2074&auto=format&fit=crop"
-                alt="Premium Industrial Infrastructure"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
+                src="/images/img1.jpg"
+                alt="Textile Valley Master Plan Brochure"
+                width={1200}
+                height={800}
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                className="w-full h-auto object-cover transform transition-transform duration-1000 group-hover:scale-105"
               />
             </motion.div>
-            
-            {/* Floating Stat Card */}
+
+            {/* Floating Architectural Stat Card */}
             <motion.div 
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="absolute -bottom-10 -left-10 md:bottom-10 md:-left-10 bg-[#0A0A0A]/90 backdrop-blur-xl border border-gold/20 p-8 rounded-xl shadow-2xl z-20"
+              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+              className="absolute -bottom-8 -left-4 md:-bottom-12 md:-left-12 bg-white rounded-3xl p-8 shadow-2xl flex flex-col gap-1 z-20 border border-stone-light backdrop-blur-xl bg-white/90"
             >
-              <div className="text-5xl font-heading text-gold mb-2">100%</div>
-              <div className="text-sm tracking-wider uppercase text-white/80">Title Clear NA</div>
+              <div className="text-5xl md:text-6xl font-numbers font-bold text-forest leading-none">100%</div>
+              <div className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-stone font-bold mt-2">Title Clear NA</div>
             </motion.div>
           </div>
-          
+
         </div>
       </div>
     </section>

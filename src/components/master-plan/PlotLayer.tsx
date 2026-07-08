@@ -11,69 +11,157 @@ interface PlotLayerProps {
   setActivePlot: (plot: PlotData | null) => void;
 }
 
-export const PlotLayer = React.memo(function PlotLayer({ plots, activePlot, setActivePlot }: PlotLayerProps) {
+export const PlotLayer = React.memo(function PlotLayer({ plots: initialPlots, activePlot, setActivePlot }: PlotLayerProps) {
+  // --- TEMPORARY EDIT MODE ---
+  const EDIT_MODE = false; 
+  const [plots, setPlots] = React.useState(initialPlots);
+  const svgRef = React.useRef<SVGSVGElement>(null);
+
+  React.useEffect(() => {
+    setPlots(initialPlots);
+  }, [initialPlots]);
+
+  const handlePointerDown = (plotId: string, pointIndex: number, e: React.PointerEvent) => {
+    if (!EDIT_MODE) return;
+    e.stopPropagation();
+    const svg = svgRef.current;
+    if (!svg) return;
+
+    const onPointerMove = (moveEvent: PointerEvent) => {
+      const rect = svg.getBoundingClientRect();
+      const x = ((moveEvent.clientX - rect.left) / rect.width) * 100;
+      const y = ((moveEvent.clientY - rect.top) / rect.height) * 100;
+      
+      setPlots(prev => prev.map(p => {
+        if (p.id !== plotId) return p;
+        const newPoints = [...p.points];
+        newPoints[pointIndex] = [parseFloat(x.toFixed(2)), parseFloat(y.toFixed(2))];
+        return { ...p, points: newPoints };
+      }));
+    };
+
+    const onPointerUp = () => {
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', onPointerUp);
+    };
+
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+  };
+
   return (
     <div className="absolute inset-0 w-full h-full" role="region" aria-label="Interactive Plot Map">
-      <AnimatePresence>
+      
+      {EDIT_MODE && (
+        <button 
+          className="absolute top-4 left-1/2 -translate-x-1/2 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full z-50 shadow-xl pointer-events-auto"
+          onClick={() => {
+            console.log(JSON.stringify(plots, null, 2));
+            navigator.clipboard.writeText(JSON.stringify(plots, null, 2));
+            alert("JSON copied to clipboard! Paste it directly into src/lib/data/plots.ts to save your traced layout.");
+          }}
+        >
+          COPY TRACED JSON
+        </button>
+      )}
+
+      <svg 
+        ref={svgRef}
+        viewBox="0 0 100 100" 
+        preserveAspectRatio="none" 
+        className="w-full h-full absolute inset-0 touch-none"
+      >
+        <AnimatePresence>
+          {plots.map((plot) => {
+            const isActive = activePlot?.id === plot.id;
+            const pointsStr = plot.points.map(p => p.join(',')).join(' ');
+            
+            return (
+              <motion.polygon
+                key={plot.id}
+                id={`plot-${plot.id}`}
+                points={pointsStr}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActivePlot(isActive ? null : plot);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setActivePlot(isActive ? null : plot);
+                  }
+                }}
+                tabIndex={0}
+                aria-label={`Plot ${plot.number}, ${plot.status}, ${plot.areaSqYd} square yards`}
+                aria-pressed={isActive}
+                className={cn(
+                  "cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-forest",
+                  isActive ? "z-50" : "z-10 hover:z-40"
+                )}
+                style={{
+                  fill: isActive ? getStatusBorder(plot.status) : getStatusColor(plot.status),
+                  stroke: getStatusBorder(plot.status),
+                  strokeWidth: isActive ? 0.3 : 0.15,
+                  vectorEffect: "non-scaling-stroke", // Keeps stroke thin regardless of zoom
+                  transition: "fill 0.4s ease, stroke-width 0.4s ease",
+                  transformOrigin: "center"
+                }}
+                whileHover={{
+                  fill: "rgba(255,255,255,0.2)",
+                  strokeWidth: 0.25
+                }}
+              />
+            );
+          })}
+          
+          {/* Render Edit Handles */}
+          {EDIT_MODE && activePlot && plots.find(p => p.id === activePlot.id)?.points.map((p, i) => (
+            <circle
+              key={`handle-${i}`}
+              cx={p[0]}
+              cy={p[1]}
+              r="0.4"
+              fill="red"
+              stroke="white"
+              strokeWidth="0.1"
+              onPointerDown={(e) => handlePointerDown(activePlot.id, i, e)}
+              className="cursor-move z-[60] hover:r-1 transition-all"
+            />
+          ))}
+        </AnimatePresence>
+      </svg>
+      
+      {/* Number Labels (rendered as HTML elements over the SVG for better typography) */}
+      <div className="absolute inset-0 pointer-events-none">
         {plots.map((plot) => {
           const isActive = activePlot?.id === plot.id;
           
+          // Calculate center point for the label
+          const centerX = plot.points.reduce((sum, p) => sum + p[0], 0) / plot.points.length;
+          const centerY = plot.points.reduce((sum, p) => sum + p[1], 0) / plot.points.length;
+          
           return (
-            <motion.button
-              key={plot.id}
-              id={`plot-${plot.id}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }} // Luxury ease
-              onClick={(e) => {
-                e.stopPropagation();
-                setActivePlot(isActive ? null : plot);
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setActivePlot(isActive ? null : plot);
-                }
-              }}
-              aria-label={`Plot ${plot.number}, ${plot.status}, ${plot.areaSqYd} square yards`}
-              aria-pressed={isActive}
+            <div
+              key={`label-${plot.id}`}
               className={cn(
-                "absolute cursor-pointer group flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-black",
-                isActive ? "z-50" : "z-10 hover:z-40"
+                "absolute -translate-x-1/2 -translate-y-1/2 font-numbers font-bold transition-opacity duration-500 drop-shadow-md",
+                isActive ? "opacity-100 text-white text-xs md:text-sm" : "opacity-0 text-charcoal text-[10px] md:text-xs"
               )}
               style={{
-                left: `${plot.x}%`,
-                top: `${plot.y}%`,
-                width: `${plot.width}%`,
-                height: `${plot.height}%`,
-                transform: `rotate(${plot.rotation || 0}deg)`,
-                backgroundColor: isActive ? getStatusBorder(plot.status) : getStatusColor(plot.status),
-                border: `1px solid ${getStatusBorder(plot.status)}`,
-                boxShadow: isActive ? `0 4px 24px ${getStatusBorder(plot.status)}` : "none",
-                transition: "background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease",
+                left: `${centerX}%`,
+                top: `${centerY}%`,
               }}
             >
-              {/* Plot Number Label */}
-              <div className={cn(
-                "font-numbers font-bold text-white transition-opacity duration-500 pointer-events-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]",
-                isActive ? "opacity-100 text-sm md:text-base" : "opacity-0 group-hover:opacity-100 text-xs md:text-sm"
-              )}>
-                {plot.number}
-              </div>
-              
-              {/* Hover Luxury Border Animation (no aggressive scaling) */}
-              <div 
-                className="absolute inset-0 border border-white opacity-0 group-hover:opacity-60 transition-opacity duration-500 pointer-events-none" 
-                style={{ 
-                  boxShadow: "inset 0 0 10px rgba(255,255,255,0.2)"
-                }} 
-              />
-            </motion.button>
+              {plot.number.split('-')[1] || plot.number}
+            </div>
           );
         })}
-      </AnimatePresence>
+      </div>
     </div>
   );
 });

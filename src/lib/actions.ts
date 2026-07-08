@@ -45,13 +45,36 @@ export async function submitInquiry(prevState: any, formData: FormData): Promise
   // In the future, this is where we would connect to Zoho, HubSpot, or Salesforce APIs.
   
   try {
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    
-    // MVP: In a real app, send an email here using Resend or SendGrid
-    console.log("New Inquiry Received:", { name, phone, email, interest, message });
+    // Send email using FormSubmit.co (No API key required)
+    // Note: The first time this runs, it will send an activation link to the email.
+    const response = await fetch("https://formsubmit.co/ajax/muhammadshaikh4203@gmail.com", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Origin": "https://textilevalley.in",
+        "Referer": "https://textilevalley.in/",
+        "User-Agent": "Node.js Fetch"
+      },
+      body: JSON.stringify({
+        name,
+        phone,
+        email: email || "Not provided",
+        interest,
+        message,
+        _subject: "New Inquiry from Textile Valley Website",
+        _template: "table"
+      })
+    });
 
-    // Also trigger admin notification or format WhatsApp link
+    const result = await response.json();
+
+    if (!response.ok || result.success !== "true") {
+      throw new Error(result.message || "Failed to send email");
+    }
+    
+    console.log("Inquiry email sent successfully:", { name, phone });
+
     return { message: "Thank you for your inquiry. Our investment team will contact you shortly.", success: true };
   } catch (error) {
     console.error("Failed to submit inquiry:", error);
