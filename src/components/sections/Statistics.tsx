@@ -15,7 +15,7 @@ export function Statistics() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col items-start px-4 md:px-8 pt-8 md:pt-0"
+              className="flex flex-col items-center justify-center text-center px-4 md:px-8 pt-8 md:pt-0"
             >
               <div className="text-[10px] uppercase tracking-[0.2em] text-stone font-bold mb-4 flex items-center gap-2">
                 <div className="w-1 h-1 rounded-full bg-forest" />
