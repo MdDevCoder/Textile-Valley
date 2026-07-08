@@ -11,6 +11,11 @@ const images = [
   { id: 2, src: "/images/gallery/2-modern-factory-exterior.png", alt: "Modern Factory Exterior" },
   { id: 3, src: "/images/gallery/3-construction-progress.png", alt: "Construction Progress" },
   { id: 4, src: "/images/gallery/4-industrial-infrastructure.png", alt: "Industrial Infrastructure" },
+  { id: 5, src: "/images/gallery/5-premium-corporate-office.png", alt: "Premium Corporate Office" },
+  { id: 6, src: "/images/gallery/6-textile-machinery.png", alt: "Textile Machinery" },
+  { id: 7, src: "/images/gallery/7-water-treatment-plant.png", alt: "Water Treatment Plant" },
+  { id: 8, src: "/images/gallery/8-textile-manufacturing-hub.png", alt: "Textile Manufacturing Hub" },
+  { id: 9, src: "/images/gallery/9-eco-friendly-green-parks.png", alt: "Eco-Friendly Green Parks" },
 ];
 
 export default function GalleryPage() {
@@ -34,7 +39,7 @@ export default function GalleryPage() {
         </div>
 
         {/* Masonry Layout approximation using CSS columns */}
-        <div className="columns-1 md:columns-2 gap-8 space-y-8 max-w-5xl mx-auto">
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8 max-w-7xl mx-auto">
           {images.map((img) => (
             <div key={img.id} className="break-inside-avoid group relative overflow-hidden rounded-[2rem] border border-stone-light shadow-xl cursor-pointer">
               <div className="relative w-full">
