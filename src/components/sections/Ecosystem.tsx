@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Box, Zap, Truck, Users } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export function Ecosystem() {
@@ -47,10 +47,10 @@ export function Ecosystem() {
             className="md:col-span-8 bg-bone rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 border border-stone-light flex flex-col justify-between group h-full min-h-[300px]"
           >
             <div className="flex justify-between items-start mb-12">
-              <div className="p-4 rounded-2xl bg-white border border-stone-light shadow-sm text-forest">
-                <Truck size={32} strokeWidth={1.5} />
+              <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-[2rem] overflow-hidden shadow-2xl shadow-charcoal/5 border border-white">
+                <Image src="/images/ecosystem/strategic-location.png" alt="Strategic Location" fill className="object-cover group-hover:scale-110 transition-transform duration-700 ease-editorial" />
               </div>
-              <span className="text-4xl font-numbers font-bold text-stone-light">01</span>
+              <span className="text-4xl md:text-5xl font-numbers font-bold text-stone-light/50 group-hover:text-stone-light transition-colors duration-500">01</span>
             </div>
             <div>
               <h3 className="text-2xl md:text-3xl font-bold text-charcoal mb-4">Strategic Location</h3>
@@ -69,10 +69,10 @@ export function Ecosystem() {
             className="md:col-span-4 bg-forest rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 flex flex-col justify-between group h-full min-h-[300px]"
           >
             <div className="flex justify-between items-start mb-12">
-              <div className="p-4 rounded-2xl bg-white/10 text-white backdrop-blur-md">
-                <Zap size={32} strokeWidth={1.5} />
+              <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-[2rem] overflow-hidden shadow-2xl shadow-black/20 border border-white/10">
+                <Image src="/images/ecosystem/robust-infra.png" alt="Robust Infra" fill className="object-cover group-hover:scale-110 transition-transform duration-700 ease-editorial" />
               </div>
-              <span className="text-4xl font-numbers font-bold text-white/20">02</span>
+              <span className="text-4xl md:text-5xl font-numbers font-bold text-white/20 group-hover:text-white/40 transition-colors duration-500">02</span>
             </div>
             <div>
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">Robust Infra</h3>
@@ -91,10 +91,10 @@ export function Ecosystem() {
             className="md:col-span-5 bg-charcoal rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 flex flex-col justify-between group h-full min-h-[300px]"
           >
             <div className="flex justify-between items-start mb-12">
-              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-white backdrop-blur-md">
-                <Box size={32} strokeWidth={1.5} />
+              <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-[2rem] overflow-hidden shadow-2xl shadow-black/30 border border-white/10">
+                <Image src="/images/ecosystem/textile-hub.png" alt="Textile Hub" fill className="object-cover group-hover:scale-110 transition-transform duration-700 ease-editorial" />
               </div>
-              <span className="text-4xl font-numbers font-bold text-white/10">03</span>
+              <span className="text-4xl md:text-5xl font-numbers font-bold text-white/10 group-hover:text-white/20 transition-colors duration-500">03</span>
             </div>
             <div>
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">Textile Hub</h3>
@@ -113,10 +113,10 @@ export function Ecosystem() {
             className="md:col-span-7 bg-white rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 border border-stone-light flex flex-col justify-between group h-full min-h-[300px] shadow-xl shadow-stone-light/20"
           >
             <div className="flex justify-between items-start mb-12">
-              <div className="p-4 rounded-2xl bg-bone border border-stone-light text-charcoal">
-                <Users size={32} strokeWidth={1.5} />
+              <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-[2rem] overflow-hidden shadow-2xl shadow-stone-light/30 border border-stone-light">
+                <Image src="/images/ecosystem/investor-community.png" alt="Investor Community" fill className="object-cover group-hover:scale-110 transition-transform duration-700 ease-editorial" />
               </div>
-              <span className="text-4xl font-numbers font-bold text-stone-light">04</span>
+              <span className="text-4xl md:text-5xl font-numbers font-bold text-stone-light/50 group-hover:text-stone-light transition-colors duration-500">04</span>
             </div>
             <div>
               <h3 className="text-2xl md:text-3xl font-bold text-charcoal mb-4">Investor Community</h3>
