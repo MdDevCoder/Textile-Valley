@@ -24,14 +24,21 @@ export function Footer() {
           <div>
             <h4 className="text-charcoal font-bold text-sm uppercase tracking-[0.2em] mb-6">Quick Links</h4>
             <ul className="space-y-4">
-              {["Home", "About Us", "Master Plan", "Amenities", "Gallery"].map((item) => (
-                <li key={item}>
+              {[
+                { name: "Home", path: "/" },
+                { name: "About Us", path: "/about-us" },
+                { name: "Master Plan", path: "/master-plan" },
+                { name: "Amenities", path: "/amenities" },
+                { name: "Gallery", path: "/gallery" },
+                { name: "Contact Us", path: "/contact" }
+              ].map((item) => (
+                <li key={item.name}>
                   <Link 
-                    href={item === "Home" ? "/" : `/${item.toLowerCase().replace(" ", "-")}`}
+                    href={item.path}
                     className="text-sm font-medium text-stone hover:text-charcoal transition-colors inline-flex items-center group"
                   >
                     <ArrowRight className="w-3 h-3 mr-2 opacity-0 -ml-5 transition-all duration-300 group-hover:opacity-100 group-hover:ml-0 text-forest" />
-                    {item}
+                    {item.name}
                   </Link>
                 </li>
               ))}
@@ -42,14 +49,20 @@ export function Footer() {
           <div>
             <h4 className="text-charcoal font-bold text-sm uppercase tracking-[0.2em] mb-6">Investors</h4>
             <ul className="space-y-4">
-              {["Why Invest", "Location Advantage", "Brochure Download", "Privacy Policy", "Terms & Conditions"].map((item) => (
-                <li key={item}>
+              {[
+                { name: "Why Invest", path: "/why-invest" },
+                { name: "Location Advantage", path: "/location" },
+                { name: "Brochure Download", path: "#" },
+                { name: "Privacy Policy", path: "#" },
+                { name: "Terms & Conditions", path: "#" }
+              ].map((item) => (
+                <li key={item.name}>
                   <Link 
-                    href="#"
+                    href={item.path}
                     className="text-sm font-medium text-stone hover:text-charcoal transition-colors inline-flex items-center group"
                   >
                     <ArrowRight className="w-3 h-3 mr-2 opacity-0 -ml-5 transition-all duration-300 group-hover:opacity-100 group-hover:ml-0 text-forest" />
-                    {item}
+                    {item.name}
                   </Link>
                 </li>
               ))}
