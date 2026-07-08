@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { amenitiesData } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -40,9 +41,17 @@ export default function AmenitiesPage() {
               <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0" />
               
               <div className="relative z-10 flex-1">
-                <div className="w-16 h-16 rounded-2xl bg-white border border-stone-light flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 transition-transform duration-500">
-                  <div className="text-forest font-numbers text-xl font-bold">
-                    {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
+                <div className="w-full h-48 md:h-56 rounded-2xl overflow-hidden mb-8 relative bg-stone-light border border-stone-light/50">
+                  <Image 
+                    src={`/images/amenities/${amenity.icon}.png`} 
+                    alt={amenity.title} 
+                    fill 
+                    className="object-cover group-hover:scale-110 transition-transform duration-700 ease-editorial" 
+                  />
+                  <div className="absolute top-4 left-4 w-12 h-12 rounded-xl bg-white/95 backdrop-blur-md flex items-center justify-center shadow-sm">
+                    <div className="text-forest font-numbers text-lg font-bold">
+                      {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
+                    </div>
                   </div>
                 </div>
                 <h3 className="text-2xl text-charcoal font-bold mb-4">{amenity.title}</h3>
