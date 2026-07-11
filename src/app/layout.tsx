@@ -109,7 +109,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${cormorant.variable} ${manrope.variable} h-full antialiased`}
     >
       <body className="antialiased min-h-screen bg-background text-foreground flex flex-col selection:bg-forest/20 selection:text-forest-light overflow-x-hidden">
         <script

@@ -1521,6 +1521,7 @@ export const masterPlanPlots: PlotData[] = [
   }
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getStatusColor = (status: PlotStatus) => {
   return "transparent";
 };

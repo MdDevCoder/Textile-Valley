@@ -19,7 +19,7 @@ export type ActionState = {
   errors?: Record<string, string[]>;
 };
 
-export async function submitInquiry(prevState: any, formData: FormData): Promise<ActionState> {
+export async function submitInquiry(prevState: ActionState | null, formData: FormData): Promise<ActionState> {
   const data = {
     name: formData.get("name") as string,
     phone: formData.get("phone") as string,

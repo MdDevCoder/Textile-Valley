@@ -72,6 +72,8 @@ export function Navbar() {
           className="md:hidden relative z-50 p-2 text-charcoal"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle Menu"
+          aria-expanded={mobileMenuOpen}
+          aria-controls="mobile-menu"
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -79,6 +81,7 @@ export function Navbar() {
 
       {/* Mobile Menu */}
       <motion.div
+        id="mobile-menu"
         className={cn(
           "fixed inset-0 bg-white z-40 flex flex-col items-center justify-center gap-8 md:hidden",
           !mobileMenuOpen && "pointer-events-none"
